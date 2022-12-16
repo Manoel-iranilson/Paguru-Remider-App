@@ -9,7 +9,7 @@ import { useReminder } from '../../contexts/reminder';
 export default function ButtonSheet({ onRequestClose }: any) {
     const [dateToday, setDateToday] = useState(new Date());
     const [selected, setSelected] = useState('');
-    const { tasks, setTasks } = useReminder();
+    const { tasks, setTasks, tempTask, setTempTask, control, setControl } = useReminder();
     const theme = useMemo(() => {
         return {
             calendarBackground: '',
@@ -18,7 +18,6 @@ export default function ButtonSheet({ onRequestClose }: any) {
             monthTextColor: 'white'
         };
     }, []);
-
     const marked = useMemo(() => ({
         [selected]: {
             selected: true,
@@ -29,14 +28,11 @@ export default function ButtonSheet({ onRequestClose }: any) {
     }), [selected]);
 
     function ExposeTask(day: string) {
-
         console.log(day);
         tasks.map(e => {
-            if (e.date == day) {
-                return Toast.show({
-                    type: 'info',
-                    text1: `Você tem ${e.task.length} Tarefas para este dia`,
-                });
+            if (e.date === day) {
+                setControl(false)
+                setTempTask(tasks.filter(el => el.date == day))
             } else {
                 return Toast.show({
                     type: 'info',

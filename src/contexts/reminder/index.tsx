@@ -5,17 +5,20 @@ const ReminderContext = createContext({} as IReminderContext);
 
 function ReminderProvider({ children }: IReminderProvider) {
     const [tasks, setTasks] = useState<ITask[]>([] as ITask[]);
+    const [tempTask, setTempTask] = useState<ITask[]>([] as ITask[]);
+    const [control, setControl] = useState(true);
 
     return (
-        <ReminderContext.Provider value={{ tasks, setTasks }}>
+        <ReminderContext.Provider value={{ tasks, setTasks, tempTask, setTempTask, control, setControl }}>
             {children}
         </ReminderContext.Provider>
     )
 }
 
 export function useReminder() {
-    const { tasks, setTasks } = useContext(ReminderContext);
-    return { tasks, setTasks }
+    const { tasks, setTasks, tempTask, setTempTask, control, setControl } = useContext(ReminderContext);
+
+    return { tasks, setTasks, tempTask, setTempTask, control, setControl }
 }
 
 

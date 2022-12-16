@@ -20,8 +20,9 @@ const Home = () => {
     const navigation = useNavigation<TypeScreen>();
     const [showCalendar, setShowCalendar] = useState(false);
     const [showSettings, setShowSettings] = useState(false)
-    const { tasks, setTasks } = useReminder();
+    const { tasks, setTasks, tempTask, setTempTask, control, setControl } = useReminder();
     const [cont, setCont] = useState(0);
+
 
     function onDelete(item: ITask, id: number) {
         setTasks((prevState) => (prevState.map((el) => {
@@ -32,8 +33,6 @@ const Home = () => {
             }
         })))
     }
-
-
 
     function onCompleted(item: ITask, id: number) {
         setTasks((prevState) => (prevState.map((el) => {
@@ -92,16 +91,16 @@ const Home = () => {
             <AlertTask start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#f39466', '#f94d73']}>
                 <Text style={{ color: "#fff", fontFamily: 'Poppins-Regular' }}>Você tem {cont} atividades para hoje!! </Text>
             </AlertTask>
-
             <Body>
-
+                <View style={{ width: '100%' }}>
+                    {control ? '' : <TouchableOpacity onPress={() => setControl(true)}><Text>Vê todos</Text></TouchableOpacity>}
+                </View>
                 <FlatList
                     style={{ width: '100%' }}
-                    data={tasks}
+                    data={control ? tasks : tempTask}
                     renderItem={renderItem}
                     keyExtractor={item => item.date}
                 />
-
             </Body>
 
             <Modal visible={showCalendar} transparent={true} onRequestClose={() => setShowCalendar(false)}>

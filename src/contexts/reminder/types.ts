@@ -16,4 +16,8 @@ export interface IReminderProvider {
 export interface IReminderContext {
   tasks: ITask[];
   setTasks: React.Dispatch<React.SetStateAction<ITask[]>>;
+  tempTask: ITask[];
+  setTempTask: React.Dispatch<React.SetStateAction<ITask[]>>;
+  control: boolean;
+  setControl: React.Dispatch<React.SetStateAction<boolean>>;
 }
