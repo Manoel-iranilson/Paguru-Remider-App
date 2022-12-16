@@ -17,7 +17,7 @@ import {
 
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import ContextProvider from './src/contexts/reminder';
+import ReminderProvider from './src/contexts/reminder';
 import Routes from './src/routes/routes';
 
 
@@ -26,9 +26,9 @@ const App = () => {
   return (
     <NavigationContainer>
       <StatusBar />
-      <ContextProvider>
+      <ReminderProvider>
         <Routes />
-      </ContextProvider>
+      </ReminderProvider>
       <Toast />
     </NavigationContainer>
   );
